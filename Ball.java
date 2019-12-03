@@ -8,12 +8,13 @@ import javax.swing.JPanel;
 public class Ball extends JPanel {
     //Initialize ball position
     int x = 0, y = 0, xVelocity = 1, yVelocity = 1;
-    int width = 300, height = 400;
+    int width = 500, height = 500;
+    int diameter = 60;
 
     private void moveBall(){
-        if (x > width)
+        if (x > width-diameter)
             xVelocity = -1;
-        if (y > height)
+        if (y > height-diameter)
             yVelocity = -1;
         // Move ball
         x = x + xVelocity;
@@ -37,7 +38,7 @@ public class Ball extends JPanel {
         JFrame frame = new JFrame("Mini Tennis");
         Ball game = new Ball();
         frame.add(game);
-        frame.setSize(300, 400);
+        frame.setSize(game.width, game.height);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
