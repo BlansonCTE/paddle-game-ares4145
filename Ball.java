@@ -12,9 +12,9 @@ public class Ball extends JPanel {
     int diameter = 60;
 
     private void moveBall(){
-        if (x > width-diameter)
+        if (x > getWidth-diameter)
             xVelocity = -1;
-        if (y > height-diameter)
+        if (y > getHeight-diameter)
             yVelocity = -1;
         // Move ball
         x = x + xVelocity;
