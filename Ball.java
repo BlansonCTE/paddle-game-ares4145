@@ -1,7 +1,10 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+
 class Ball{
     //Initialize ball position and initial velocty
-    int x = 0, y = 0, xVelocity = 1, yVelocity = 1;
+    int x = 0, y = 0, xa = 1, ya = 1;
     // Create ball size
     private static final int DIAMETER = 30;
     private Game game;
@@ -9,22 +12,44 @@ class Ball{
     public Ball(Game game) {
         this.game = game;
     }
+
+
     void moveBall(){
-        if (x + xVelocity > game.getWidth() - DIAMETER)
-            xVelocity = -1;
-        else if (x < 0)
-            xVelocity = 1;
-        if (y + yVelocity > game.getHeight() - DIAMETER)
-            yVelocity = -1;
-        else if (y<0)
-            yVelocity = -1;
+        // hits left wall
+        if (x + xa < 0)
+            xa = game.speed;
+        // hits right wall
+        if (x + xa > game.getWidth() - DIAMETER)
+            xa = -game.speed;
+        // hits top wall
+        if (y + ya < 0)
+            ya = game.speed;
+        if (y + ya > game.getHeight()-DIAMETER)
+            game.gameOver();
+        if (collision()) {
+            ya = -game.speed;
+            y = game.paddle.getTopY() - DIAMETER;
+            game.speed++;
+            // Goes under paddle
+        
+            }
 
         // Move ball
-        x = x + xVelocity;
-        y = y + yVelocity;
+        x = x + xa;
+        y = y + ya;
     }
 
     public void paint(Graphics2D g){
+        g.setColor(Color.ORANGE);
         g.fillOval(x, y, DIAMETER, DIAMETER);
+    }
+
+    private boolean collision(){
+        return game.paddle.getBounds().intersects(getBounds());
+    }
+
+
+    public Rectangle getBounds(){
+        return new Rectangle(x,y, DIAMETER, DIAMETER);
     }
 }
