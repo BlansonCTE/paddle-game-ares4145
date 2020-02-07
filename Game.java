@@ -17,7 +17,9 @@ public class Game extends JPanel {
 	Ball ball = new Ball(this);
 //The variable "Paddle" is made into a "this"
 	Paddle paddle = new Paddle(this);
-//The variable "Speed"	
+//The variable "Paddle2" is made into a "this"
+	Paddle2 paddle2 = new Paddle2(this);
+//The variable "Speed"
 	int speed = 1;
 
 //	
@@ -29,10 +31,12 @@ public class Game extends JPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				paddle.keyReleased(e);
+				paddle2.keyReleased(e);
 			}
 			@Override
 			public void keyPressed(KeyEvent e) {
 				paddle.keyPressed(e);
+				paddle2.keyPressed(e);
 			}
 		});
 		setFocusable(true);
@@ -41,6 +45,7 @@ public class Game extends JPanel {
 	private void move() {
 		ball.moveBall();
 		paddle.move();
+		paddle2.move();
 	}
 
 	@Override
@@ -49,13 +54,17 @@ public class Game extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
+		// Chnages Background Color
+		setBackground(Color.BLACK);
 		ball.paint(g2d);
 		paddle.paint(g2d);	
+		paddle2.paint(g2d);
 
 			// Score
 			g2d.setColor(Color.GRAY);
 			g2d.setFont(new Font("Verdana", Font.BOLD, 30));
 			g2d.drawString(String.valueOf(getScore()), 10, 30);
+			g2d.drawString(String.valueOf(getScore()), 905, 45);
 	}
 
 	public void gameOver() {
@@ -71,7 +80,7 @@ public class Game extends JPanel {
 		JFrame frame = new JFrame("Mini Tennis");
 		Game game = new Game();
 		frame.add(game);
-		frame.setSize(300, 400);
+		frame.setSize(1000, 1000);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

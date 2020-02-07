@@ -4,9 +4,9 @@ import java.awt.Rectangle;
 
 class Ball{
     //Initialize ball position and initial velocty
-    int x = 0, y = 0, xa = 1, ya = 1;
+    int x = 500, y = 0, xa = 1, ya = 1;
     // Create ball size
-    private static final int DIAMETER = 30;
+    private static final int DIAMETER = 50;
     private Game game;
 
     public Ball(Game game) {
@@ -17,22 +17,27 @@ class Ball{
     void moveBall(){
         // hits left wall
         if (x + xa < 0)
-            xa = game.speed;
+            game.gameOver();
         // hits right wall
         if (x + xa > game.getWidth() - DIAMETER)
-            xa = -game.speed;
+            game.gameOver();
         // hits top wall
         if (y + ya < 0)
-            ya = game.speed;
-        if (y + ya > game.getHeight()-DIAMETER)
-            game.gameOver();
-        if (collision()) {
             ya = -game.speed;
-            y = game.paddle.getTopY() - DIAMETER;
-            game.speed++;
-            // Goes under paddle
-        
+        // Goes under paddle
+        if (y + ya > game.getHeight() - DIAMETER)
+            xa = game.speed;
+
+
+        if (collision()) {
+            xa *= -game.speed;
+            x += 5;
             }
+        if (collision2()) {
+            xa *= -game.speed;
+            x -= 5; 
+        }
+            
 
         // Move ball
         x = x + xa;
@@ -47,9 +52,13 @@ class Ball{
     private boolean collision(){
         return game.paddle.getBounds().intersects(getBounds());
     }
+    private boolean collision2(){
+        return game.paddle2.getBounds().intersects(getBounds());
+    }
+
 
 
     public Rectangle getBounds(){
         return new Rectangle(x,y, DIAMETER, DIAMETER);
     }
-}
+}                                                                                                                                                                                                                   
