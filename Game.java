@@ -73,7 +73,7 @@ public class Game extends JPanel {
 	}
 	// returns the score
 	private int getScore() {
-		return speed - 1;
+		return speed -1;
 	}
 
 	public static void main(String[] args) throws InterruptedException {

@@ -26,16 +26,21 @@ class Ball{
             ya = -game.speed;
         // Goes under paddle
         if (y + ya > game.getHeight() - DIAMETER)
-            xa = game.speed;
+            ya = -game.speed;
+
+        if (y + ya <0)
+            ya = game.speed;
 
 
         if (collision()) {
             xa *= -game.speed;
             x += 5;
+            game.speed++;
             }
         if (collision2()) {
             xa *= -game.speed;
-            x -= 5; 
+            x -= 5;
+            game.speed++;
         }
             
 
